@@ -1,15 +1,26 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
+
 const app = express()
+const PORT = 3001;
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
+app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+)
 
-// get for '/notes' returns notes.html
-// GET Route for homepage
 app.get('/notes', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-);
+    res.sendFile(path.join(__dirname, 'public/notes.html'))
+)
 
-// get '*' returns index.js 
+app.get('/api/notes', (req, res) =>
+    res.sendFile(path.join(__dirname, 'public/notes.html'))
+)
+
+app.post('/api/notes', (req, res) =>
+    res.sendFile(path.join(__dirname, 'public/notes.html'))
+)
+
+// figure out what this does
+app.listen(PORT, () =>
+    console.log(`Example app listening at http://localhost:${PORT}`)
+);
